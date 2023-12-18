@@ -1,0 +1,50 @@
+* {
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+h1 {
+  background-image: url("../media/pattern.jpeg");
+  color: khaki;
+  font-size: 100px;
+  font-weight: bold;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h2 {
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.price {
+  color: blue;
+  font-weight: bold;
+}
+
+.brushes {
+  background-color: mediumspringgreen;
+}
+
+.frames {
+  background-color: lightcoral;
+}
+
+.paint {
+  background-color: skyblue;
+}
+
+p,
+li {
+  font-size: 16px;
+}
+
+
+a {
+  text-decoration: none;
+}
