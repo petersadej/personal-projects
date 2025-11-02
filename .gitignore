@@ -106,6 +106,13 @@ Thumbs.db
 *.key
 *.pem
 
+# ignore youtube downloader/music files
+*.mp3
+*.wav
+*.m4a
+*.mp4
+*.opus
+
 # --------------------------------------------------------
 # BEGIN Explictly Allowed Files (i.e. do NOT ignore these)
 # --------------------------------------------------------
