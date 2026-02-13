@@ -1,0 +1,13 @@
+# 1. Find usb dev id
+lsblk
+
+# 1a. Check file system integrity of new or old drive (if needed)
+sudo fsck /dev/sdX1
+
+# 2. Uncompress and write backup to usb
+sudo zstdcat ./Desktop/backup-omv-2026-02-11_00-00-02.ddfull.zst |  sudo dd of=/dev/sdc bs=1M status=progress
+
+# 3. Ensure all data is flushed from write buffers
+sync
+
+
