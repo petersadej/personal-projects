@@ -1,0 +1,24 @@
+Install
+
+1. Install python
+2. python virtual environment
+    $ python3 -m venv .venv
+3. install python requirements
+    $ pip3 install -r requirements.txt
+4. install JS runtime (deno, bun, or node)
+    $ curl -fsSL https://deno.land/install.sh | sh
+
+Check this out for mass downloading + auto metadata for Jellyfin
+https://github.com/jmbannon/ytdl-sub?tab=readme-ov-file
+
+Find formats
+    yt-dlp --list-formats --cookies-from-browser firefox  https://www.youtube.com/watch?v=daYgg2YSA2g
+
+Download video best format available
+    yt-dlp -S "ext" --cookies-from-browser firefox  https://www.youtube.com/watch?v=daYgg2YSA2g
+With Metadata
+    yt-dlp -S "ext" --write-info-json --cookies-from-browser firefox  https://www.youtube.com/watch?v=daYgg2YSA2g
+
+Download only metadata as json file
+    yt-dlp --write-info-json --list-formats --cookies-from-browser firefox  https://www.youtube.com/watch?v=daYgg2YSA2g
+
