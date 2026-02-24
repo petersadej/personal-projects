@@ -3,10 +3,32 @@ import sys
 from pathlib import Path
 from docx import Document
 from docx.shared import Pt
-from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 
-def excel_to_word(excel_file, output_file=None):
+def read_input_file(input_file: str) -> pd.DataFrame:
+    """
+    Read supported tabular input files (Excel or CSV) into a DataFrame.
+
+    Args:
+        input_file: Path to the input file
+
+    Returns:
+        pandas.DataFrame
+    """
+    file_extension = Path(input_file).suffix.lower()
+
+    if file_extension == '.csv':
+        return pd.read_csv(input_file)
+
+    if file_extension in ['.xlsx', '.xls', '.xlsm']:
+        return pd.read_excel(input_file)
+
+    raise ValueError(
+        f"Unsupported file type '{file_extension}'. Supported types: .csv, .xlsx, .xls, .xlsm"
+    )
+
+
+def excel_to_word(excel_file: str, output_file: str = None) -> str:
     """
     Convert an Excel file to a formatted Word document.
     Each row is written with column headers in bold preceding the data.
@@ -16,8 +38,8 @@ def excel_to_word(excel_file, output_file=None):
         output_file: Path to the output Word file (optional)
     """
     try:
-        # Read the Excel file
-        df = pd.read_excel(excel_file)
+        # Read the input file
+        df = read_input_file(excel_file)
 
         # If no output file specified, create one based on input filename
         if output_file is None:
@@ -48,7 +70,7 @@ def excel_to_word(excel_file, output_file=None):
                 header_run = p.add_run(f"{header}: ")
                 header_run.bold = True
                 # Add value in normal text
-                value_run = p.add_run(str(value))
+                p.add_run(str(value))
 
             # Add blank paragraph between rows
             doc.add_paragraph()
@@ -67,7 +89,7 @@ def excel_to_word(excel_file, output_file=None):
         sys.exit(1)
 
 
-def excel_to_text(excel_file, output_file=None):
+def excel_to_text(excel_file: str, output_file: str = None) -> str:
     """
     Convert an Excel file to a formatted text document.
     Each row is written on separate lines with column headers preceding the data.
@@ -77,8 +99,8 @@ def excel_to_text(excel_file, output_file=None):
         output_file: Path to the output text file (optional)
     """
     try:
-        # Read the Excel file
-        df = pd.read_excel(excel_file)
+        # Read the input file
+        df = read_input_file(excel_file)
 
         # If no output file specified, create one based on input filename
         if output_file is None:
@@ -114,8 +136,9 @@ def excel_to_text(excel_file, output_file=None):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python excel_to_text.py <excel_file> [output_file] [--format txt|docx]")
+        print("Usage: python excel_to_text.py <input_file> [output_file] [--format txt|docx]")
         print("Example: python excel_to_text.py data.xlsx output.txt")
+        print("Example: python excel_to_text.py data.csv output.txt")
         print("Example: python excel_to_text.py data.xlsx output.docx --format docx")
         sys.exit(1)
 
